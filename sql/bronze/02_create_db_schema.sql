@@ -1,0 +1,4 @@
+CREATE DATABASE IF NOT EXISTS spotify_db;
+CREATE SCHEMA IF NOT EXISTS spotify_db.bronze;
+
+
