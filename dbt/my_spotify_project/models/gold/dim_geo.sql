@@ -2,7 +2,7 @@
 WITH raw_countries AS (
     SELECT DISTINCT
         country
-    FROM {{ source('spotify_bronze', 'tracks') }}
+    FROM {{ source('bronze', 'tracks') }}
     WHERE country IS NOT NULL
 )
 
