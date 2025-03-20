@@ -1,21 +1,102 @@
-
 version: 2
 
-models:
-  - name: my_first_dbt_model
-    description: "A starter dbt model"
-    columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
+sources:
+  - name: spotify_bronze
+    database: spotify_db
+    schema: bronze
+    tables:
+      - name: tracks
+        description: "Curated tracks table from the bronze layer."
+        columns:
+          - name: album_id
+            description: "Unique album identifier."
+            tests:
+              - not_null
+          - name: album_name
+            description: "Name of the album."
+          - name: artist_ids
+            description: "List of artist IDs (stored as a VARIANT/array)."
+          - name: artist_names
+            description: "List of artist names (stored as a VARIANT/array)."
+          - name: country
+            description: "Country code where the track was released."
+            tests:
+              - not_null
+          - name: popularity
+            description: "Popularity score of the track."
+          - name: track_id
+            description: "Unique track identifier."
+            tests:
+              - not_null
+          - name: track_name
+            description: "Name of the track."
+      - name: artists
+        description: "Curated artists table from the bronze layer."
+        columns:
+          - name: artist_id
+            description: "Unique artist identifier."
+            tests:
+              - not_null
+          - name: artist_name
+            description: "Name of the artist."
+            tests:
+              - not_null
+          - name: genres
+            description: "List of genres for the artist (stored as VARIANT/array)."
+          - name: popularity
+            description: "Popularity score of the artist."
+          - name: followers
+            description: "Total number of followers for the artist."
 
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
+models:
+  - name: gold_tracks
+    description: "Fact table for tracks with transformation and cleaning applied."
     columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
+      - name: track_id
+        description: "Unique track identifier."
+      - name: track_name
+        description: "Name of the track."
+      - name: track_popularity
+        description: "Popularity score of the track."
+      - name: country
+        description: "Country code for the track."
+      - name: album_id
+        description: "Identifier of the album the track belongs to."
+
+  - name: dim_artists
+    description: "Dimension table for artists with clean and standardized fields."
+    columns:
+      - name: artist_id
+        description: "Unique artist identifier."
+      - name: artist_name
+        description: "Name of the artist."
+      - name: genres
+        description: "List of genres; if empty, this could be set to an empty array or a default value."
+      - name: artist_popularity
+        description: "Artist's popularity score."
+      - name: artist_followers
+        description: "Total number of followers."
+
+  - name: dim_albums
+    description: "Dimension table for albums."
+    columns:
+      - name: album_id
+        description: "Unique album identifier."
+      - name: album_name
+        description: "Name of the album."
+
+  - name: bridge_track_artists
+    description: "Bridge table to resolve the many-to-many relationship between tracks and artists."
+    columns:
+      - name: track_id
+        description: "Unique track identifier."
+      - name: artist_id
+        description: "Artist identifier extracted from the array in the tracks table."
+
+  - name: dim_geo
+    description: "Dimension table for geography that provides clean country information."
+    columns:
+      - name: geo_code
+        description: "The country code (e.g., 'FR', 'DE', etc.)."
+      - name: country_name
+        description: "Descriptive country name."
