@@ -2,15 +2,13 @@ venv_3_11/
 __pycache__/
 *.pyc
 .env
+venv_3_11/
+__pycache__/
+*.pyc
+.env
 
 # dbt specific
 dbt/my_spotify_project/target/
-dbt/my_spotify_project/tests/
-dbt/my_spotify_project/snapshots/
-dbt/my_spotify_project/seeds/
 dbt/my_spotify_project/logs/
-dbt/my_spotify_project/macros/
 dbt/my_spotify_project/dbt_packages/
 dbt/logs/
-
-.cache
