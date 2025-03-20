@@ -1,12 +1,11 @@
 USE DATABASE spotify_db;
 USE SCHEMA spotify_db.bronze;
 
--- 1) For tracks
+-- Create raw tables for tracks and artists
 CREATE OR REPLACE TABLE raw_spotify_tracks (
     data VARIANT
 );
 
--- 2) For artists
 CREATE OR REPLACE TABLE raw_spotify_artists (
     data VARIANT
 );
