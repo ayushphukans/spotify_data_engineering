@@ -41,19 +41,28 @@ def produce_eu_tracks(countries=None):
                 album_details = sp.album(album_id, market=country)
                 tracks = album_details.get("tracks", {}).get("items", [])
                 print(f"Album '{album.get('name')}' in {country} has {len(tracks)} tracks.")
-                for track in tracks:
-                    message_data = {
-                        "country": country,
-                        "album_id": album_id,
-                        "album_name": album.get("name"),
-                        "track_id": track.get("id"),
-                        "track_name": track.get("name"),
-                        "artist_ids": [artist.get("id") for artist in track.get("artists", [])],
-                        "artist_names": [artist.get("name") for artist in track.get("artists", [])],
-                        "popularity": track.get("popularity")
-                    }
-                    producer.send("spotify_eu_tracks", json.dumps(message_data).encode("utf-8"))
-                    total_messages += 1
+                
+                # Retrieve full track details (including popularity)
+                track_ids = [track.get("id") for track in tracks if track.get("id")]
+                if track_ids:
+                    full_tracks_response = sp.tracks(track_ids)
+                    full_tracks = full_tracks_response.get("tracks", [])
+                    for full_track in full_tracks:
+                        message_data = {
+                            "country": country,
+                            "album_id": album_id,
+                            "album_name": album.get("name"),
+                            "track_id": full_track.get("id"),
+                            "track_name": full_track.get("name"),
+                            "artist_ids": [artist.get("id") for artist in full_track.get("artists", [])],
+                            "artist_names": [artist.get("name") for artist in full_track.get("artists", [])],
+                            "popularity": full_track.get("popularity")
+                        }
+                        producer.send("spotify_eu_tracks", json.dumps(message_data).encode("utf-8"))
+                        total_messages += 1
+                else:
+                    print(f"No valid track IDs found for album {album.get('name')} in {country}.")
+
             except Exception as e:
                 print(f"Error processing album {album_id} for {country}: {e}")
 

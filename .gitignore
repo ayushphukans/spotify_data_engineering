@@ -2,3 +2,10 @@ venv_3_11/
 __pycache__/
 *.pyc
 .env
+
+# dbt specific
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+
+.cache

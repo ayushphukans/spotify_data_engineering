@@ -8,4 +8,3 @@ CREATE STORAGE INTEGRATION IF NOT EXISTS spotify_integration
     STORAGE_ALLOWED_LOCATIONS= ('s3://my-spotify-bronze-bucket/spotify/')
     STORAGE_AWS_ROLE_ARN='arn:aws:iam::148761668347:role/snowflake_to_spotifys3_access';
 
-
