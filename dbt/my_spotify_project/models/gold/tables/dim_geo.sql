@@ -1,3 +1,4 @@
+{{ config(materialized='table') }}
 
 WITH raw_countries AS (
     SELECT DISTINCT
@@ -20,4 +21,4 @@ SELECT
         WHEN 'BE' THEN 'Belgium'
         ELSE 'Other'
     END AS country_name
-FROM raw_countries;
+FROM raw_countries 
