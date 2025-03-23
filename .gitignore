@@ -13,4 +13,6 @@ dbt/my_spotify_project/macros/
 dbt/my_spotify_project/dbt_packages/
 dbt/logs/
 
+/logs
+
 .cache

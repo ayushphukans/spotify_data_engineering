@@ -1,8 +1,9 @@
+{{ config(materialized='table') }}
 
 WITH raw_countries AS (
     SELECT DISTINCT
         country
-    FROM {{ source('spotify_bronze', 'tracks') }}
+    FROM {{ source('bronze', 'tracks') }}
     WHERE country IS NOT NULL
 )
 
@@ -20,4 +21,4 @@ SELECT
         WHEN 'BE' THEN 'Belgium'
         ELSE 'Other'
     END AS country_name
-FROM raw_countries;
+FROM raw_countries 
