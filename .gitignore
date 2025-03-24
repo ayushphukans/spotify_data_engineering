@@ -27,3 +27,4 @@ dbt/logs/
 /logs
 .cache
 /logs
+.DS_Store
