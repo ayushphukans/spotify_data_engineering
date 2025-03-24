@@ -1,7 +1,7 @@
 import os
 import json
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
+from spotipy.oauth2 import SpotifyClientCredentials
 from kafka import KafkaProducer
 from dotenv import load_dotenv
 
@@ -10,14 +10,15 @@ def produce_eu_artists(countries=None):
     if countries is None:
         countries = ["DE", "FR", "ES", "CH", "SE", "AT", "DK", "NL", "BE"]
 
-    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-        client_id=os.getenv("SPOTIFY_CLIENT_ID"),
-        client_secret=os.getenv("SPOTIFY_CLIENT_SECRET"),
-        redirect_uri=os.getenv("SPOTIFY_REDIRECT_URI"),
-        scope="playlist-read-private playlist-read-collaborative"
-    ))
+    # Switch to SpotifyClientCredentials
+    sp = spotipy.Spotify(
+        auth_manager=SpotifyClientCredentials(
+            client_id=os.getenv("SPOTIFY_CLIENT_ID"),
+            client_secret=os.getenv("SPOTIFY_CLIENT_SECRET")
+        )
+    )
 
-    producer = KafkaProducer(bootstrap_servers="localhost:9092")
+    producer = KafkaProducer(bootstrap_servers="kafka1:9092")
     all_artist_ids = set()
 
     for country in countries:
