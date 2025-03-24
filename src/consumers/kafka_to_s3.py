@@ -10,9 +10,9 @@ def consume_and_write_to_s3(
     topic,
     s3_prefix,
     group_id="kafka_to_s3_group",
-    max_idle_seconds=60,
-    poll_interval=5,
-    batch_size=50
+    max_idle_seconds=10,
+    poll_interval=1,
+    batch_size=100
 ):
     """
     Consumes messages from a given Kafka topic using consumer.poll(),
@@ -35,7 +35,7 @@ def consume_and_write_to_s3(
 
     # Create Kafka consumer
     consumer = KafkaConsumer(
-        bootstrap_servers="localhost:9092",
+        bootstrap_servers="kafka1:9092",
         auto_offset_reset="earliest",
         group_id=group_id,
         # poll() returns a dict of {TopicPartition: [messages]}
@@ -113,9 +113,9 @@ def main():
         topic="spotify_eu_tracks",
         s3_prefix="spotify/bronze/eu_tracks",
         group_id="kafka_to_s3_tracks",
-        max_idle_seconds=60,   # stop after 60s of no new messages
-        poll_interval=5,       # poll every 5s
-        batch_size=50
+        max_idle_seconds=10,   # stop after 60s of no new messages
+        poll_interval=1,       # poll every 5s
+        batch_size=100
     )
 
     # 2) Then consume from 'spotify_eu_artists'
@@ -123,9 +123,9 @@ def main():
         topic="spotify_eu_artists",
         s3_prefix="spotify/bronze/eu_artists",
         group_id="kafka_to_s3_artists",
-        max_idle_seconds=60,
-        poll_interval=5,
-        batch_size=50
+        max_idle_seconds=10,
+        poll_interval=1,
+        batch_size=100
     )
 
 if __name__ == "__main__":

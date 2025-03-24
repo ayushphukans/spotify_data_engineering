@@ -2,6 +2,6 @@
 
 SELECT DISTINCT
     track_id,
-    artist_id
+    flattened.value::VARCHAR AS artist_id
 FROM {{ source('bronze', 'tracks') }},
-LATERAL FLATTEN(input => artist_ids) 
+LATERAL FLATTEN(input => artist_ids) AS flattened

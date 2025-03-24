@@ -2,6 +2,5 @@
 
 SELECT DISTINCT
     album_id,
-    album_name,
-    album_release_date
-FROM {{ source('bronze', 'tracks') }} 
+    album_name
+FROM {{ source('bronze', 'tracks') }}
