@@ -60,7 +60,7 @@ cp .env.example .env
 
 ### 3. Launch the Pipeline Environment
 
-Make sure Docker is running a
+Make sure Docker is running
 
 ```bash
 docker-compose run airflow airflow db init
