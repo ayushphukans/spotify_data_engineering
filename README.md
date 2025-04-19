@@ -52,12 +52,12 @@ Ensure these steps are completed before running the pipeline.
 ```bash
 git clone https://github.com/your-username/spotify-data-pipeline.git
 cd spotify-data-pipeline
-
+```
 ### 2. Add Your Credentials
 
 ```bash
 cp .env.example .env
-
+```
 ### 3. Launch the Pipeline Environment
 
 Make sure Docker is running
@@ -65,7 +65,7 @@ Make sure Docker is running
 ```bash
 docker-compose run airflow airflow db init
 docker-compose up --build
-
+```
 ### 4. Access Airflow & Trigger the Pipeline
 
 Once all services are running, open Airflow in your browser:
