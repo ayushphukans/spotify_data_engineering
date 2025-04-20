@@ -1,10 +1,10 @@
-# 🎧 Spotify Data Pipeline
+#  Spotify Data Pipeline
 
 This is a full-stack data engineering project that collects Spotify track and artist metadata across multiple European countries using the Spotify API. The data flows through Kafka, is stored in S3, modeled in Snowflake using dbt, and orchestrated via Apache Airflow.
 
 ---
 
-## 📦 Prerequisites
+##  Prerequisites
 
 Make sure you have the following installed:
 
@@ -16,7 +16,7 @@ Make sure you have the following installed:
 
 ---
 
-## 🚀  Highlights
+##   Highlights
 
 - Kafka producers stream Spotify metadata  
 - Kafka consumers push raw JSON to S3  
@@ -26,7 +26,7 @@ Make sure you have the following installed:
 
 ---
 
-## 🧩 Snowflake & AWS S3 Integration
+##  Snowflake & AWS S3 Integration
 
 To enable the pipeline to load data from S3 into Snowflake, you need to create an external stage and storage integration between your Snowflake account and an S3 bucket.
 
@@ -45,7 +45,7 @@ Ensure these steps are completed before running the pipeline.
 
 ---
 
-## 🛠 How to Run
+##  How to Run
 
 ### 1. Clone the Repository
 
@@ -89,12 +89,12 @@ You can now use these tables to build rich dashboards and derive music insights 
 
 ---
 
-### 🙌 Contributing
+###  Contributing
 
 If you’d like to contribute or improve this project, feel free to fork the repo and raise a pull request!
 
 ---
 
-### 📬 Contact
+###  Contact
 
 Have questions or feedback? Feel free to reach out or open an issue.
